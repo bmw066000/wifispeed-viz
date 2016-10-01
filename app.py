@@ -45,7 +45,7 @@ def get_data():
             writer = csv.writer(log_file)
             writer.writerow(['time', 'ping', 'download', 'upload'])
 
-    p = Popen(['/anaconda/bin/speedtest-cli', '--simple', '--secure'], stdout=PIPE, bufsize=1, close_fds=ON_POSIX)
+    p = Popen(['/anaconda/bin/speedtest-cli', '--simple'], stdout=PIPE, bufsize=1, close_fds=ON_POSIX)
     output, error = p.communicate()
     data_entry = [float(line.strip().split()[1]) for line in output.splitlines()]
     data_entry.insert(0, (datetime.datetime.now() - start_time).seconds)
