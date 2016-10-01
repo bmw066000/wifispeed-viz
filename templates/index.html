@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="theme-color" content="#01c78c">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+		<title>TAMUhack Wifi Speed Monitor</title>
+	</head>
+    <body>
+        <div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						 		<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="#">
+								<b>Wifi Speed Monitor</b> <span class="badge">ALPHA</span>
+							</a>
+						</div>
+
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<a href="/" class="btn btn-default navbar-btn" role="button">Reset</a>
+							<a href="/kill" class="btn btn-default navbar-btn" role="button">Shut down</a>
+						</div>
+
+					</nav>
+				</div>
+			</div>
+
+            <div class="row">
+                <div class="col-md-12">
+					<div class="panel panel-default">
+  						<div class="panel-heading">Graphs</div>
+                        <div class="panel-body">
+                            <p>Speed</p>
+                            <div class="graph" id="speedPlot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script>
+			$(document).ready(function() {
+				ajaxd();
+				setInterval("ajaxd()", 1000);
+			});
+
+			// used to pad int with leading 0
+			function pad(number, digits) {
+                return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+            }
+			var speedPlot = document.getElementById('speedPlot');
+
+			var graph_time = [];
+			var graph_speed = [];
+
+			function ajaxd() {
+                var msg = $.ajax({type: "GET", url: "/get_data", async: false}).responseText;
+                var sData = JSON.parse(msg);
+
+				// save data to plot
+				graph_time.push(sData[0]);
+				graph_speed.push(sData[1]);
+                if (graph_time.length > 100) {
+                    graph_time.shift();
+                    graph_speed.shift();
+                }
+                console.log(graph_time);
+                graph_update();
+            }
+
+
+			var speedPlot = document.getElementById('speedPlot');
+
+            function graph_update() {
+                Plotly.newPlot(speedPlot, [
+                        {
+                            x: graph_time,
+                            y: graph_speed,
+                            fill: 'tonexty',
+                            type: 'scatter'
+                        } ],
+                        {
+                        margin: {
+                            l: 30,
+                            r: 30,
+                            b: 30,
+                            t: 0,
+                            pad: 0
+                        }
+                    }
+                );
+            }
+        </script>
+    </body>
+</html>
