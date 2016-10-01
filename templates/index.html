@@ -82,22 +82,23 @@
             var graph_upload = [];
 
 			function ajaxd() {
-                var msg = $.ajax({type: "GET", url: "/get_data"}).responseText;
+                var msg = $.ajax({type: "GET", url: "/get_data", async: false}).responseText;
                 console.log(msg);
                 var sData = JSON.parse(msg);
-
-				// save data to plot
-				graph_time.push(sData[0]);
-				graph_ping.push(sData[1]);
-                graph_download.push(sData[2]);
-                graph_upload.push(sData[3]);
-                if (graph_time.length > 100) {
-                    graph_time.shift();
-                    graph_ping.shift();
-                    graph_download.shift();
-                    graph_upload.shift();
+                if (sData.length === 4) {
+                    // save data to plot
+                    graph_time.push(sData[0]);
+                    graph_ping.push(sData[1]);
+                    graph_download.push(sData[2]);
+                    graph_upload.push(sData[3]);
+                    if (graph_time.length > 100) {
+                        graph_time.shift();
+                        graph_ping.shift();
+                        graph_download.shift();
+                        graph_upload.shift();
+                    }
+                    graph_update();
                 }
-                graph_update();
             }
 
             function graph_update() {
