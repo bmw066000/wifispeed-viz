@@ -20,7 +20,7 @@
 						 		<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 							</button>
 							<a class="navbar-brand" href="#">
-								<b>Wifi Speed Monitor</b> <span class="badge">ALPHA</span>
+								<b>Wifi Speed Monitor</b> <span class="badge">BETA</span>
 							</a>
 						</div>
 
@@ -34,11 +34,19 @@
 			</div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-9">
 					<div class="panel panel-default">
                         <div class="panel-body">
                             <p>Ping</p>
                             <div class="graph" id="pingPlot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <canvas class="text-center" id="pingGauge" height="125"></canvas>
+                            <div class="text-center" id="ping-textfield"></div>
                         </div>
                     </div>
                 </div>
@@ -68,47 +76,7 @@
         <script src="/static/js/jquery.min.js"></script>
 		<script src="/static/js/plotly-latest.min.js"></script>
         <script src="/static/js/bootstrap.min.js"></script>
-        <script>
-			$(document).ready(function() {
-				ajaxd();
-				setInterval("ajaxd()", 100);
-			});
-
-			// used to pad int with leading 0
-			var pingPlot = document.getElementById('pingPlot');
-            var downloadPlot = document.getElementById('downloadPlot');
-            var uploadPlot = document.getElementById('uploadPlot');
-
-			var graph_time = [];
-			var graph_ping = [];
-            var graph_download = [];
-            var graph_upload = [];
-
-			function ajaxd() {
-                var msg = $.ajax({type: "GET", url: "/get_data", async: false}).responseText;
-                console.log(msg);
-                var sData = JSON.parse(msg);
-                if (sData.length === 4) {
-                    // save data to plot
-                    graph_time.push(sData[0]);
-                    graph_ping.push(sData[1]);
-                    graph_download.push(sData[2]);
-                    graph_upload.push(sData[3]);
-                    if (graph_time.length > 100) {
-                        graph_time.shift();
-                        graph_ping.shift();
-                        graph_download.shift();
-                        graph_upload.shift();
-                    }
-                    graph_update();
-                }
-            }
-
-            function graph_update() {
-                Plotly.newPlot(pingPlot, [ { x: graph_time, y: graph_ping, fill: 'tonexty', type: 'scatter', marker: {color: "#dff0d8"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 0, pad: 0 }, xaxis: {title: 'time (s)'}, yaxis: {title: 'ms'} } );
-                Plotly.newPlot(downloadPlot, [ { x: graph_time, y: graph_download, fill: 'tonexty', type: 'scatter', marker: {color: "#d9edf7"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 30, pad: 0 }, xaxis: {title: 'time (s)'}, yaxis: {title: 'Mbit/s'} } );
-                Plotly.newPlot(uploadPlot, [ { x: graph_time, y: graph_upload, fill: 'tonexty', type: 'scatter', marker: {color: "#f2dede"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 30, pad: 0 }, xaxis: {title: 'time (s)'}, yxis: {title: 'Mbit/s'} } );
-            }
-        </script>
+        <script src="/static/js/gauge.min.js"></script>
+        <script src="/static/js/main.js"></script>
     </body>
 </html>

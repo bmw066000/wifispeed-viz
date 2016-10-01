@@ -6,6 +6,7 @@ import csv
 import sys
 import time
 import copy
+import random
 import os
 
 app = Flask(__name__)
@@ -47,9 +48,9 @@ def get_data():
 
     p = Popen(['/anaconda/bin/speedtest-cli', '--simple'], stdout=PIPE, bufsize=1, close_fds=ON_POSIX)
     output, error = p.communicate()
-    retval = [0, 0, 0]
+    retval = [(datetime.datetime.now() - start_time).seconds, random.randint(0, 200), 0, 0]
     if p.returncode == 0:
-        data_entry = [float(line.strip().split()[1]) for line in output.splitlines()]
+        data_entry = [int(float(line.strip().split()[1])) for line in output.splitlines()]
         data_entry.insert(0, (datetime.datetime.now() - start_time).seconds)
         retval = copy.deepcopy(data_entry)
         print(data_entry)
