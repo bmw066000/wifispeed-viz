@@ -37,6 +37,7 @@
                 <div class="col-md-12">
 					<div class="panel panel-default">
                         <div class="panel-body">
+                            <p>Ping</p>
                             <div class="graph" id="pingPlot"></div>
                         </div>
                     </div>
@@ -46,6 +47,7 @@
                 <div class="col-md-12">
 					<div class="panel panel-default">
                         <div class="panel-body">
+                            <p>Download</p>
                             <div class="graph" id="downloadPlot"></div>
                         </div>
                     </div>
@@ -55,6 +57,7 @@
                 <div class="col-md-12">
 					<div class="panel panel-default">
                         <div class="panel-body">
+                            <p>Upload</p>
                             <div class="graph" id="uploadPlot"></div>
                         </div>
                     </div>
@@ -102,9 +105,9 @@
             }
 
             function graph_update() {
-                Plotly.newPlot(pingPlot, [ { x: graph_time, y: graph_ping, fill: 'tonexty', type: 'scatter', marker: {color: "#dff0d8"} } ], { title: 'Ping', height: 120, margin: { l: 30, r: 30, b: 30, t: 0, pad: 0 }, xaxis: {title: 'time (s)'}, yaxis: {title: 'ms'} } );
-                Plotly.newPlot(downloadPlot, [ { x: graph_time, y: graph_download, fill: 'tonexty', type: 'scatter', marker: {color: "#d9edf7"} } ], { title: 'Download', height: 120, margin: { l: 30, r: 30, b: 30, t: 30, pad: 0 }, xaxis: {title: 'time (s)'}, yaxis: {title: 'Mbit/s'} } );
-                Plotly.newPlot(uploadPlot, [ { x: graph_time, y: graph_upload, fill: 'tonexty', type: 'scatter', marker: {color: "#f2dede"} } ], { title: 'Upload', height: 120, margin: { l: 30, r: 30, b: 30, t: 30, pad: 0 }, xaxis: {title: 'time (s)'}, yxis: {title: 'Mbit/s'} } );
+                Plotly.newPlot(pingPlot, [ { x: graph_time, y: graph_ping, fill: 'tonexty', type: 'scatter', marker: {color: "#dff0d8"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 0, pad: 0 }, xaxis: {title: 'time (s)'}, yaxis: {title: 'ms'} } );
+                Plotly.newPlot(downloadPlot, [ { x: graph_time, y: graph_download, fill: 'tonexty', type: 'scatter', marker: {color: "#d9edf7"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 30, pad: 0 }, xaxis: {title: 'time (s)'}, yaxis: {title: 'Mbit/s'} } );
+                Plotly.newPlot(uploadPlot, [ { x: graph_time, y: graph_upload, fill: 'tonexty', type: 'scatter', marker: {color: "#f2dede"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 30, pad: 0 }, xaxis: {title: 'time (s)'}, yxis: {title: 'Mbit/s'} } );
             }
         </script>
     </body>
