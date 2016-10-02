@@ -23,10 +23,10 @@ var pingGauge = new Gauge(document.getElementById('pingGauge')).setOptions({
     generateGradient: true
 });
 pingGauge.setTextField(document.getElementById('ping-textfield'));
-pingGauge.maxValue = 30;
+pingGauge.maxValue = 50;
 
 var downloadPlot = document.getElementById('downloadPlot');
-var uploadPlot = document.getElementById('uploadPlot');
+// var uploadPlot = document.getElementById('uploadPlot');
 
 var graph_time = [];
 var graph_ping = [];
@@ -55,7 +55,7 @@ function ajaxd() {
 }
 
 function graph_update() {
-    Plotly.newPlot(pingPlot, [ { x: graph_time, y: graph_ping, fill: 'tonexty', type: 'scatter', marker: {color: "#00ae33"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 0, pad: 0 }, xaxis: {title: 'time (s)'}, yaxis: {title: 'ms'} } );
+    Plotly.newPlot(pingPlot, [ { x: graph_time, y: graph_ping, fill: 'tonexty', type: 'scatter', marker: {color: "#00ae33"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 0, pad: 0 }, xaxis: {title: 'time (s)'}, yaxis: {title: 'ms', range: [0, 50]} } );
     Plotly.newPlot(downloadPlot, [ { x: graph_time, y: graph_download, fill: 'tonexty', type: 'scatter', marker: {color: "#3333ff"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 30, pad: 0 }, xaxis: {title: 'time (s)'}, yaxis: {title: 'Mbit/s'} } );
-    Plotly.newPlot(uploadPlot, [ { x: graph_time, y: graph_upload, fill: 'tonexty', type: 'scatter', marker: {color: "#f2dede"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 30, pad: 0 }, xaxis: {title: 'time (s)'}, yxis: {title: 'Mbit/s'} } );
+    // Plotly.newPlot(uploadPlot, [ { x: graph_time, y: graph_upload, fill: 'tonexty', type: 'scatter', marker: {color: "#f2dede"} } ], { height: 120, margin: { l: 30, r: 30, b: 30, t: 30, pad: 0 }, xaxis: {title: 'time (s)'}, yxis: {title: 'Mbit/s'} } );
 }

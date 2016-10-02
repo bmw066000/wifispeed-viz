@@ -34,43 +34,49 @@
 			</div>
 
             <div class="row">
-                <div class="col-md-9">
-					<div class="panel panel-default">
+                <div class="col-sm-8">
+					<div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Ping
+                        </div>
                         <div class="panel-body">
-                            <p>Ping</p>
                             <div class="graph" id="pingPlot"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default">
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
                         <div class="panel-body">
-                            <canvas class="text-center" id="pingGauge" height="125"></canvas>
-                            <div class="text-center" id="ping-textfield"></div>
+                            <div class="text-center">
+                                <canvas id="pingGauge" height="125" width="220"></canvas>
+                                <div id="ping-textfield"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-					<div class="panel panel-default">
+					<div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Download
+                        </div>
                         <div class="panel-body">
-                            <p>Download</p>
                             <div class="graph" id="downloadPlot"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-					<div class="panel panel-default">
-                        <div class="panel-body">
-                            <p>Upload</p>
-                            <div class="graph" id="uploadPlot"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{#            <div class="row" style="visibility: hidden">#}
+{#                <div class="col-md-12">#}
+{#					<div class="panel panel-default">#}
+{#                        <div class="panel-body">#}
+{#                            <p>Upload</p>#}
+{#                            <div class="graph" id="uploadPlot"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
         </div>
 
         <script src="/static/js/jquery.min.js"></script>
